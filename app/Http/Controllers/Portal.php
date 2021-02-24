@@ -5,16 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Models\Post;
 use App\Models\Blog;
-use hash;
-use App\Models\Category;
 
 class Portal extends Controller
 {
 
-    public function show(){
-        $artikel = DB::table('posts')->orderby('id', 'desc')->get();
-        return view('admin.artikel', ['artikel'=>$artikel]);
+    public function index(){
+        
+        // $artikel = DB::table('posts')->orderBy('id', 'desc')->get();
+        $artikel = Post::orderBy('id', 'desc')->get();
+
+        return view('index', compact('artikel'));
     }
 
     public function showAdmin(){
@@ -23,12 +25,6 @@ class Portal extends Controller
         
         return view('admin.admin', ['admin'=>$admin]);
 
-    }
-
-    public function index(){
-        $artikel = DB::table('posts')->orderBy('id', 'desc')->get();
-
-        return view('index', ['artikel' =>$artikel]);
     }
 
     public function addTags(Request $request){
@@ -56,14 +52,6 @@ class Portal extends Controller
         ]);
 
         return redirect('/admin')->with('success', 'Admin telah berhasil ditambahkan');
-
-    }
-
-    public function detailArtikel($slug){
-
-        $artikel = DB::table('posts')->where('slug', $slug)->first();
-
-        return view('content.details', ['artikel' => $artikel]);
 
     }
 
@@ -178,39 +166,6 @@ class Portal extends Controller
         $delete = DB::table('galeri')->where('id', $id)->delete();
 
         return redirect('/foto')->with('delete', 'Foto berhasil dihapus');
-
-    }
-
-    public function addArticle(Request $artikel){
-
-        $imgName = $artikel->thumbnail->getClientOriginalName() . '-' . time() . '.' . $artikel->thumbnail->extension();
-
-        $artikel->thumbnail->move(public_path('content'), $imgName);
-
-        DB::table('posts')->insert([
-            'category' => $artikel->category,
-            'title' => $artikel->title,
-            'slug' => Str::slug($artikel->title, '-'),
-            'thumbnail' => $imgName,
-            'deskripsi' => $artikel->deskripsi,
-            'content' => $artikel->konten,
-            'status' => $artikel->status,
-            'created_at' => new \DateTime(),
-            'updated_at' => new \DateTime()
-        ]);
-
-        return redirect('/artikel')->with('success', 'Artikel berhasil ditambahkan');
-    }
-
-    public function deleteArticle($id){
-
-        $hapus      = DB::table('posts')->where('id', $id);
-        $image_path = public_path().'/content'.$hapus->thumbnail;
-        unlink($image_path);
-
-        $hapus->delete();
-
-        return redirect()->back()->with('delete', 'Artikel berhasil dihapus');
 
     }
 

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Portal;
+use App\Http\Controllers\Article\Article;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +39,7 @@ Route::post('tambah-admin/addadmin', [Portal::class, 'addAdmin']);
 
 // Main menu dashboard admin
 Route::get('/main', [Portal::class, 'dashboard']);
-Route::get('/artikel', [Portal::class, 'show']);
+Route::get('/artikel', [Article::class, 'showArticle']);
 Route::get('/tags', [Portal::class, 'tags']);
 Route::get('/foto', [Portal::class, 'foto']);
 Route::get('/video', function(){
@@ -59,8 +60,8 @@ Route::get('/tambah-foto', function(){
 
 Route::post('/addfoto-process', [Portal::class, 'addFoto']);
 Route::post('/addtags-process', [Portal::class, 'addTags']);
-Route::get('/tambah-artikel', [Portal::class, 'formArticle']);
-Route::post('/add-process', [Portal::class, 'addArticle']);
+Route::get('/tambah-artikel', [Article::class, 'formArticle']);
+Route::post('/add-process', [Article::class, 'addArticle']);
 // end 
 
 // update process
@@ -79,7 +80,7 @@ Route::get('/admin/{id}/delete-admin', [Portal::class, 'deleteAdmin']);
 // end
 
 // Route artikel
-Route::get('/detail-artikel/{slug}', [Portal::class, 'detailArtikel']);
+Route::get('/detail-artikel/{slug}', [Article::class, 'detailArtikel']);
 
 // routing sementara
 Route::post('/test/Ck', [Portal::class, 'upload'])->name('ckeditor.upload');
