@@ -29,7 +29,7 @@
           <div class="form-group">
             <label for="">Kategori</label>
             <select id="inputState" class="form-control" name="category" style="width: 55rem"> 
-                @foreach ($tags as $t)
+                @foreach ($article as $t)
                   <option name="category" value="{{ $t->title }}">{{ $t->title }}</option>    
                 @endforeach
             </select>

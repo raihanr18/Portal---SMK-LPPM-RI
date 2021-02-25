@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoryTable extends Migration
+class CreateAnnouncementTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('category', function (Blueprint $table) {
+        Schema::create('announcement', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 75);
-            $table->string('slug', 100)->unique();
+            $table->text('announcement');
+            $table->enum('status', ['PUBLISH', 'DRAFT'])->default('PUBLISH');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category');
+        Schema::dropIfExists('announcement');
     }
 }

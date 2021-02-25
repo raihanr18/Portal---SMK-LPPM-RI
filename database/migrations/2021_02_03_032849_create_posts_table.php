@@ -21,7 +21,7 @@ class CreatePostsTable extends Migration
             $table->string('thumbnail', 100);
             $table->string('deskripsi', 140);
             $table->text('content');
-            $table->enum('status', ['PUBLISH', 'DRAFT'])->default('DRAFT');
+            $table->enum('status', ['PUBLISH', 'DRAFT'])->default('PUBLISH');
             $table->timestamps();
         });
     }

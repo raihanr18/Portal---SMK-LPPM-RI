@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Models\Post;
 use App\Models\Blog;
+use App\Models\Category;
+use App\Models\Gallery;
+use App\Models\Announce;
 
 class Portal extends Controller
 {
@@ -55,14 +58,6 @@ class Portal extends Controller
 
     }
 
-    public function foto(){
-
-        $foto = DB::table('galeri')->orderby('id', 'desc')->get();
-
-        return view('admin.foto', ['foto' => $foto]);
-
-    }
-
     public function deleteAdmin($id){
 
         $delete = DB::table('users')->where('id', $id)->delete();
@@ -106,22 +101,12 @@ class Portal extends Controller
     }
 
     public function dashboard(){
-        $data    = DB::table('posts')->count();
-        $tags    = DB::table('category')->count();
-        $galeri  = DB::table('galeri')->count();
-        return view('admin.main', 
-        [
-            'data'=>$data,
-            'tags' =>$tags,
-            'galeri' =>$galeri
-            ]);
-    }
+        $data     = Post::count();
+        $tags     = Category::count();
+        $galeri   = Gallery::count();
+        $announce = Announce::count();
 
-    public function formArticle(){
-
-        $tags = DB::table('category')->orderBy('id', 'desc')->get();
-
-        return view('content.addarticle', ['tags'=>$tags]);
+        return view('admin.main', compact('data', 'tags', 'galeri', 'announce'));
 
     }
 

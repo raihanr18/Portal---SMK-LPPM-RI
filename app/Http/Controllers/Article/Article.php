@@ -17,6 +17,15 @@ class Article extends Controller
         return view('admin.artikel', compact('artikel'));
     }
 
+    public function formArticle(){
+
+        // $tags = DB::table('category')->orderBy('id', 'desc')->get();
+        $article = Post::orderby('id', 'desc')->get();
+
+        return view('content.addarticle', compact('article'));
+
+    }
+
     public function detailArtikel($slug){
 
         // $artikel = DB::table('posts')->where('slug', $slug)->first();

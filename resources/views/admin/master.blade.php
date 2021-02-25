@@ -33,7 +33,7 @@
         <ul class="navbar-nav navbar-right">
           <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
             <img alt="image" src="../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-            <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth::user()->name  }}</div></a>
+            <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth::user()->name }}</div></a>
             <div class="dropdown-menu dropdown-menu-right">
               <a href="/profil" class="dropdown-item has-icon">
                 <i class="far fa-user"></i> Profile
@@ -99,6 +99,19 @@
                       </ul>
                     </li>
 
+                    <li class="{{ (request()->is('pengunguman') ? 'active' : '') }} {{ (request()->is('tambah-pengunguman') ? 'active' : '') }}">
+                      <a class="nav-link has-dropdown" href=""><i class="fas fa-bullhorn"></i> 
+                        <span>Pengunguman</span></a>
+                        <ul class="dropdown-menu">
+                          <li class="{{ (request()->is('pengunguman') ? 'active' : '') }}">
+                            <a class="nav-link" href="/pengunguman">List Pengunguman</a>
+                          </li>
+                          <li class="{{ (request()->is('tambah-pengunguman') ? 'active' : '') }}">
+                            <a class="nav-link" href="/tambah-pengunguman">Tambah Pengunguman</a>
+                          </li>
+                        </ul>
+                      </li>
+
               <li class="menu-header">Galeri</li>
                 <li class="{{ (request()->is('foto') ? 'active' : '') }} {{ (request()->is('tambah-foto') ? 'active' : '') }}">
                   <a class="nav-link has-dropdown" href="/foto"><i class="far fa-images"></i></i> 
@@ -111,10 +124,6 @@
                         <a class="nav-link" href="/tambah-foto">Tambah Foto</a>
                       </li>
                     </ul>
-                  </li>
-                <li class="{{ (request()->is('video') ? 'active' : '') }}">
-                  <a class="nav-link" href="/video"><i class="fas fa-video"></i></i> 
-                    <span>Video</span></a>
                   </li>
         </aside>
       </div>

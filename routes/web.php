@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Portal;
 use App\Http\Controllers\Article\Article;
+use App\Http\Controllers\Gallery\Galeri;
+use App\Http\Controllers\Pengunguman\Pengunguman;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,10 +43,14 @@ Route::post('tambah-admin/addadmin', [Portal::class, 'addAdmin']);
 Route::get('/main', [Portal::class, 'dashboard']);
 Route::get('/artikel', [Article::class, 'showArticle']);
 Route::get('/tags', [Portal::class, 'tags']);
-Route::get('/foto', [Portal::class, 'foto']);
+Route::get('/foto', [Galeri::class, 'foto']);
 Route::get('/video', function(){
     return view('admin.video');
 });
+
+// Route Pengunguman
+Route::get('/pengunguman', [Pengunguman::class, 'show']);
+
 
 // auth
 Auth::routes();
@@ -58,6 +64,7 @@ Route::get('/tambah-foto', function(){
     return view('content.addfoto');
 });
 
+Route::get('/tambah-pengunguman', [Pengunguman::class, 'formAdd']);
 Route::post('/addfoto-process', [Portal::class, 'addFoto']);
 Route::post('/addtags-process', [Portal::class, 'addTags']);
 Route::get('/tambah-artikel', [Article::class, 'formArticle']);
